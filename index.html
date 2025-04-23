@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>متجر عبدو للي لبيع العبيد 🛒</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; }
+    html, body { overflow-x:hidden; }
+
+    body {
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      color: #222; display:flex; flex-direction:column; min-height:100vh;
+      padding-bottom:80px;
+    }
+
+    header {
+      background:#20232a; color:#fff; text-align:center; padding:30px 20px;
+      animation:fadeInDown 1s ease-out;
+    }
+    header h1 { font-size:34px; margin-bottom:10px; }
+    header p  { font-size:16px; }
+
+    nav {
+      background:#282c34; display:flex; justify-content:center;
+      gap:30px; flex-wrap:wrap; padding:15px 20px;
+    }
+    nav a {
+      color:#fff; text-decoration:none; font-weight:700;
+      transition:color .3s; cursor:pointer;
+    }
+    nav a:hover { color:#61dafb; }
+
+    .banner {
+      background:linear-gradient(135deg,#ff9800,#ff5722);
+      color:#fff; text-align:center; padding:15px;
+      font-size:20px; font-weight:700; animation:pulse 2s infinite;
+    }
+
+    .products {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px; padding:30px 20px; flex:1;
+    }
+    .product {
+      background:#fff; padding:20px; border-radius:15px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      text-align:center; transition:transform .3s,box-shadow .3s;
+    }
+    .product.special {
+      border:3px solid gold;
+    }
+    .product:hover {
+      transform:translateY(-5px);
+      box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    }
+    .product h3 {
+      margin-bottom:10px; font-size:20px; color:#333;
+    }
+    .product p {
+      margin-bottom:15px; font-size:14px; color:#555;
+    }
+    .btn {
+      background:#007bff; color:#fff; border:none;
+      padding:10px 20px; border-radius:8px; cursor:pointer;
+      transition:background .3s; font-size:14px;
+    }
+    .btn:hover { background:#0056b3; }
+
+    footer {
+      background:#20232a; color:#fff; text-align:center;
+      padding:20px; position:fixed; bottom:0; left:0; width:100%;
+    }
+
+    #termsOverlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.8);
+      display:flex; justify-content:center; align-items:center;
+      z-index:10000;
+    }
+    #termsBox {
+      background:#1e1e1e; color:#fff; padding:30px;
+      border-radius:10px; max-width:500px; text-align:center;
+      animation:fadeIn .8s ease-out;
+    }
+    #termsBox h2 { margin-bottom:15px; font-size:22px; }
+    #termsBox p  { line-height:1.6; margin-bottom:20px; font-size:14px; }
+    #acceptBtn {
+      background:#4caf50; color:#fff; border:none;
+      padding:12px 25px; border-radius:8px; cursor:pointer;
+      transition:background .3s; font-size:14px;
+    }
+    #acceptBtn:hover { background:#388e3c; }
+
+    #customModal {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.8); justify-content:center;
+      align-items:center; z-index:9999;
+    }
+    #customModal .modal-content {
+      background:#fff; color:#222; padding:25px;
+      border-radius:12px; max-width:450px; width:90%;
+      text-align:center; position:relative;
+      animation:fadeIn .5s ease-in-out;
+    }
+    #customModal .close-btn {
+      position:absolute; top:8px; left:10px;
+      background:transparent; border:none; font-size:24px;
+      cursor:pointer;
+    }
+
+    @keyframes fadeIn {
+      from{opacity:0;transform:scale(0.9);}
+      to{opacity:1;transform:scale(1);}
+    }
+    @keyframes fadeInDown {
+      from{opacity:0;transform:translateY(-20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    @keyframes pulse {
+      0%,100%{transform:scale(1);}
+      50%{transform:scale(1.03);}
+    }
+
+    @media (max-width:1024px) {
+      .products { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:600px) {
+      .products { grid-template-columns:1fr; }
+      .banner  { font-size:16px; padding:12px; }
+      header h1{ font-size:24px; }
+      nav      { gap:15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="termsOverlay">
+    <div id="termsBox">
+      <h2>اتفاقية الاستخدام</h2>
+      <p>هذا الموقع عبارة عن مزحة، لا شيئ هنا حقيقي.<br>لا ندعم تجارة البشر أو العبودية.<br>كل شيئ هنا غير حقيقي، نتضامن مع حقوق السود.</p>
+      <button id="acceptBtn">موافق، أدخل</button>
+    </div>
+  </div>
+
+  <header>
+    <h1>متجر عبدو للي لبيع العبيد 🛒</h1>
+    <p>ارخص سعر، افضل عبيد، اسطول خياليي!!</p>
+  </header>
+
+  <nav>
+    <a onclick="openInfo('من نحن')">من نحن</a>
+    <a onclick="openInfo('تواصل معنا')">تواصل معنا</a>
+  </nav>
+
+  <div class="banner">🔥عرووووووض خاصة 50% الحق ما تلحق الكمية محدووودة🔥</div>
+
+  <section class="products">
+    <div class="product special">
+      <h3>عبد اللطيف</h3>
+      <p>اسطورة افريقيا والسمر🔥</p>
+      <button class="btn" onclick="orderNow('عبد اللطيف')">استعبده</button>
+    </div>
+    <div class="product">
+      <h3>يامن</h3>
+      <p>ابيض البشرة، استخدام علخفيف</p>
+      <button class="btn" onclick="orderNow('يامن')">استعبده</button>
+    </div>
+    <div class="product">
+      <h3>نصر</h3>
+      <p>دب، يتحمل الشغل الثقيل بقوته الهائلة🙄</p>
+      <button class="btn" onclick="orderNow('نصر')">استعبده</button>
+    </div>
+    <div class="product">
+      <h3>حسين</h3>
+      <p>مبرمج خارق، يقدر يكوّد لك أي شيء، تقريبا تم استعبادي عشان اسوي هاذا الموقع</p>
+      <button class="btn" onclick="orderNow('حسين')">استعبده</button>
+    </div>
+    <div class="product">
+      <h3>ChatGPT</h3>
+      <p>عبد تقدر تبيعه وتشتريه، او خلينا نقول تشترك فيه، غالبا راح يستعبدك مو العكس</p>
+      <button class="btn" onclick="orderNow('ChatGPT')">استعبده</button>
+    </div>
+    <div class="product">
+      <h3>ماجد</h3>
+      <p>أستاذ تاريخ، بالع مسجل، 34 ساعة يوميا شرح تاريخي ممل، ممكن حتى يقول لك مين اللي اخترع الورق عنب!</p>
+      <button class="btn" onclick="orderNow('ماجد')">استعبده</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>جميع حقوق الطقطقة محفوظة 2025 - عبدو للي©</p>
+  </footer>
+
+  <div id="customModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      document.getElementById('acceptBtn').onclick = () => {
+        document.getElementById('termsOverlay').style.display = 'none';
+      };
+    };
+
+    const modal = document.getElementById('customModal');
+    const mc = document.getElementById('modalContent');
+
+    function openModal(html) {
+      mc.innerHTML = html;
+      modal.style.display = 'flex';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function orderNow(name) {
+      if (name === 'عبد اللطيف') {
+        openModal(`
+          <h2>🔒 إدخل كود عبد اللطيف الخاص</h2>
+          <p>أدخل رمزًا من أربع أرقام تعرفه أنت فقط:</p>
+          <input id="codeInput" type="password" maxlength="4" placeholder="XXXX"
+                 style="padding:8px;font-size:16px;margin-top:10px;" />
+          <button class="btn" onclick="verifyCode()">تحقق</button>
+          <p id="codeError" style="color:red;display:none;margin-top:10px;"></p>
+        `);
+      } else {
+        openModal(`
+          <h2> من جدك انت رايح تشتري عبد، ولااا مو اي عبد، انت تبغى ${name}!؟</h2>
+          <p>كلنا عبيد لله، نحن لا نبيع عبيد، اتمنى ما اكون زعلت احد فيكم🤍🤝(:</p>
+        `);
+      }
+    }
+
+    function verifyCode() {
+      const code = document.getElementById('codeInput').value;
+      const err  = document.getElementById('codeError');
+      if (code === '3152') {
+        mc.innerHTML = `
+          <h2>شخص مميز🤍</h2>
+          <p>نحبك يا عبد اللطيف، ومو معناة ان بشرتك سوداء يعني اننا نتعنصر عليك، احنا اخوان فلاسلام.<br>
+          نحنا نحترمك ونحبك عشان جوهرك، مو عشان خارجك🤝🤍</p>
+        `;
+      } else {
+        err.textContent = 'الكود غير صحيح!';
+        err.style.display = 'block';
+      }
+    }
+
+    function openInfo(type) {
+      if (type === 'من نحن') {
+        openModal(`
+          <h2>من نحن؟</h2>
+          <p>مش نحن، هوا انا، بياع للعبيد، اصبر... انت صدقت؟!</p>
+        `);
+      } else {
+        openModal(`
+          <h2>تواصل معنا</h2>
+          <p>تبغى تتواصل ليش، بتبيع عبد لنا؟!</p>
+        `);
+      }
+    }
+  </script>
+</body>
+</html>
